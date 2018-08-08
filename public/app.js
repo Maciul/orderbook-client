@@ -1,22 +1,24 @@
 'use strict';
 /*global fetch Plotly document*/
 
-const url = 'http://localhost:8002/getOrderBooks?market=';
+const url = 'https://sheltered-cove-26373.herokuapp.com/getOrderBooks?market=';
 let intervalSet;
 let requestTryCount = 3;
 
 /*
-first function to be called.
-setInterval is called which will update the graph every 5 seconds.
-Then we trigger fetchAndGraph to fetch data and graph the results..
+newCurrenctPair
+- First function to be called.
+- setInterval is called which will update the graph every 5 seconds.
+- Then we trigger fetchAndGraph to fetch data and graph the results..
+- This funtion will be called again if different currency pair is picked.
 */
 
 module.exports.newCurrencyPair = function ( currencyPair ) {
     if ( intervalSet ) {
         clearInterval( intervalSet );
     }
-    intervalSet = setInterval( this.fetchAndGraph.bind( this ), 5000, currencyPair );
     this.fetchAndGraph( currencyPair );
+    intervalSet = setInterval( this.fetchAndGraph.bind( this ), 5000, currencyPair );
 };
 
 module.exports.fetchAndGraph = async function ( currencyPair = 'BTC_ETH' ) {
@@ -26,8 +28,9 @@ module.exports.fetchAndGraph = async function ( currencyPair = 'BTC_ETH' ) {
     try {
         response = await fetch( `${url}${currencyPair}` );
         result = await response.json();
+        console.log( result.bittrex );
     } catch ( e ) {
-        // in case the server is down, try 3 times before stopping to make further requests.
+        // in case the server is down, retry 3 times before stopping to make further requests.
         if ( requestTryCount < 1 ) {
             clearInterval( intervalSet );
         }
@@ -57,5 +60,6 @@ module.exports.formatDataForGraph = function( orderData, order, type ) {
     return graphTrace;
 };
 
-// initialize
-module.exports.newCurrencyPair();
+if ( window.testMode !== true ) {// initialize
+    module.exports.newCurrencyPair();
+}
