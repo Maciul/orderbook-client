@@ -28,7 +28,6 @@ module.exports.fetchAndGraph = async function ( currencyPair = 'BTC_ETH' ) {
     try {
         response = await fetch( `${url}${currencyPair}` );
         result = await response.json();
-        console.log( result.bittrex );
     } catch ( e ) {
         // in case the server is down, retry 3 times before stopping to make further requests.
         if ( requestTryCount < 1 ) {
