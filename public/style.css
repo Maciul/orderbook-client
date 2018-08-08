@@ -1,0 +1,28 @@
+body {
+    background-color: #043c96;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dropdown {
+    border: 2px solid #ccc;
+    width: 160px;
+    font-size: 20px;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.dropdown select {
+    padding: 8px 12px;
+    width: 120%;
+    border: none;
+    box-shadow: none;
+    background: transparent;
+    background-image: none;
+    -webkit-appearance: none;
+}
+
+.dropdown select:focus {
+    outline: none;
+}

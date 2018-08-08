@@ -1,0 +1,18 @@
+<head>
+  <!-- Plotly.js -->
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="bundle.js" type="text/javascript"></script>
+  <link href="style.css" rel="stylesheet" type="text/css">
+  <title> Crypto Order Book </title>
+</head>
+<body>
+    <div style="width: 100%">
+        <select class="dropdown" onchange="ob.newCurrencyPair( this.value )"> 
+            <option value=BTC_ETH> BTC_ETH</option>
+            <option value=BTC_DOGE> BTC_DOGE</option>
+            <option value=BTC_LTC> BTC_LTC</option>
+        </select>
+        <div id="orderBookGraph" style="width: 100%;"></div>
+    </div>
+
+</body>
